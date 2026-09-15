@@ -9,26 +9,51 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 # Trigger the workflow whenever commits or tags are pushed to the repository.
 on: [push]
 
+#steht fuer die Variablen
+env:
+  DAY_OF_WEEK: Tuesday
+
 # Group all jobs that belong to this workflow.
 jobs:
   # Define the unique ID for this job.
-  check-bats-version:
-    # Run the job on a new GitHub-hosted Ubuntu virtual machine.
+  # check-bats-version:
+  #   # Run the job on a new GitHub-hosted Ubuntu virtual machine.
+  #   runs-on: ubuntu-latest
+
+  #   # Run each step in order on the same runner.
+  #   steps:
+  #     # Check out the repository so later steps can access its files.
+  #     - uses: actions/checkout@v7
+
+  #     # Install Node.js and add the node and npm commands to PATH.
+  #     - uses: actions/setup-node@v7
+  #       with:
+  #         # Select the Node.js version to install.
+  #         node-version: '24'
+
+  #     # Install the Bash Automated Testing System globally through npm.
+  #     - run: npm install -g bats
+
+  #     # Display the installed Bats version.
+  #     - run: bats -v
+  greeting_job:
     runs-on: ubuntu-latest
-
-    # Run each step in order on the same runner.
+    env:
+      Greetings: Hallo
     steps:
-      # Check out the repository so later steps can access its files.
-      - uses: actions/checkout@v7
-
-      # Install Node.js and add the node and npm commands to PATH.
-      - uses: actions/setup-node@v7
-        with:
-          # Select the Node.js version to install.
-          node-version: '24'
-
-      # Install the Bash Automated Testing System globally through npm.
+      - name: "Say HALLO"
+      run: echo "$Greeting, today is $DAY_OF_WEEK!"
+  example-job:
+    runs-on: ubuntu-latest
+    steps: 
       - run: npm install -g bats
-
-      # Display the installed Bats version.
-      - run: bats -v
+  script-runner_job:
+    runs=on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./scripts
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v7
+      - name: Run a script
+        run: ./my-script.sh
