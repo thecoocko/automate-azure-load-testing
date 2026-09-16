@@ -5,6 +5,6 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main'}}
         runs-on: ubuntu-latest
         env:
-            MY_ENV_VAR: ${{ null }}
+            MY_ENV_VAR: ${{ 21 }}
         steps:
             - run: echo "Deploying to production server on branch $MY_ENV_VAR $GITHUB_REF"
