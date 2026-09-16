@@ -4,5 +4,7 @@ jobs:
     prod-check:
         if: ${{ github.ref == 'refs/heads/main'}}
         runs-on: ubuntu-latest
+        env:
+            MY_ENV_VAR: ${{ null }}
         steps:
-            - run: echo "Deploying to production server on branch $GITHUB_REF"
+            - run: echo "Deploying to production server on branch $MY_ENV_VAR $GITHUB_REF"
